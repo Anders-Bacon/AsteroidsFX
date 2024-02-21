@@ -1,6 +1,5 @@
 package dk.sdu.mmmi.cbse.playersystem;
 
-import dk.sdu.mmmi.cbse.common.bullet.Bullet;
 import dk.sdu.mmmi.cbse.common.bullet.BulletSPI;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
@@ -21,7 +20,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
             
         for (Entity player : world.getEntities(Player.class)) {
             if (gameData.getKeys().isDown(GameKeys.LEFT)) {
-                player.setRotation(player.getRotation() - 5);
+                player.setRotation(player.getRotation() - 5);                
             }
             if (gameData.getKeys().isDown(GameKeys.RIGHT)) {
                 player.setRotation(player.getRotation() + 5);                
@@ -31,11 +30,6 @@ public class PlayerControlSystem implements IEntityProcessingService {
                 double changeY = Math.sin(Math.toRadians(player.getRotation()));
                 player.setX(player.getX() + changeX);
                 player.setY(player.getY() + changeY);
-            }
-            if (gameData.getKeys().isPressed(GameKeys.SPACE)){
-                for (BulletSPI bullet : getBulletSPIs()){
-                    world.addEntity(bullet.createBullet(player, gameData));
-                }
             }
             
         if (player.getX() < 0) {
@@ -53,7 +47,8 @@ public class PlayerControlSystem implements IEntityProcessingService {
         if (player.getY() > gameData.getDisplayHeight()) {
             player.setY(gameData.getDisplayHeight()-1);
         }
-
+            
+                                        
         }
     }
 
