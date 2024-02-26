@@ -23,6 +23,13 @@ public class PlayerPlugin implements IGamePluginService {
 
         Entity playerShip = new Player();
         playerShip.setPolygonCoordinates(-5,-5,10,0,-5,5);
+
+        //Enemy:
+        //playerShip.setPolygonCoordinates(-4,4,-3, 4, -3, 3, -2, 3, -2, 2, 1, 2, 1, 3, 2, 3, 2, 4, 3, 4, 3, 3, 2, 3, 2, 2, 3, 2, 3, 1, 4, 1, 4, 0, 5, 0, 5, -3, 4, -3, 4, -1, 3, -1, 3, -3, 2, -3, 2, -4, 0, -4, 0, -3, 2, -3, 2, -2, -3, -2, -3, -3, -1, -3, -1, -4, -3, -4, -3, -3, -4, -3, -4, -1, -5, -1, -5, -3, -6, -3, -6, 0, -5, 0, -5, 1, -4, 1, -4, 2, -3, 2, -3, 3, -4, 3, -4, 4);
+
+        //Spaceship:
+
+        //playerShip.setPolygonCoordinates(12, -1, 8, -1, 8, -3, 6, -3, 6, -5, -2, -5, -2, -7, 0, -7, 0, -9, -10, -9, -10, -5, -8, -5, -8, -3, -6, -3, -6, -1, -10, -1, -10, 1, -6, 1, -6, 3, -8, 3, -8, 5, -10, 5, -10, 9, 0, 9, 0, 7, -2, 7, -2, 5, 2, 5, 2, 1, 4, 1, 4, -1, 2, -1, 2, -3, 4, -3, 4, -1, 6, -1, 6, 1, 4, 1, 4, 3, 2, 3, 2, 5, 6, 5, 6, 3, 8, 3, 8, 1, 12, 1);
         playerShip.setX(gameData.getDisplayHeight()/2);
         playerShip.setY(gameData.getDisplayWidth()/2);
         return playerShip;
