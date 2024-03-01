@@ -92,10 +92,11 @@ public class Main extends Application {
 
     private void render() {
         new AnimationTimer() {
-            private long then = 0;
+            private long then = 5;
 
             @Override
             public void handle(long now) {
+
                 update();
                 draw();
                 gameData.getKeys().update();

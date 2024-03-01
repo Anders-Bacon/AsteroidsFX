@@ -13,7 +13,6 @@ import java.util.ServiceLoader;
 
 import static java.util.stream.Collectors.toList;
 
-
 public class PlayerControlSystem implements IEntityProcessingService {
 
     @Override
@@ -53,7 +52,6 @@ public class PlayerControlSystem implements IEntityProcessingService {
         if (player.getY() > gameData.getDisplayHeight()) {
             player.setY(gameData.getDisplayHeight()-1);
         }
-
                                         
         }
     }
