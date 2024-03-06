@@ -13,14 +13,14 @@ import static java.util.stream.Collectors.toList;
 
 public class EnemyControlSystem implements IEntityProcessingService {
 
-    private int speed = 1;
     @Override
     public void process(GameData gameData, World world) {
         for (Entity enemy : world.getEntities(Enemy.class)) {
             if (enemy.getX() >= gameData.getDisplayWidth()) {
-                enemy.setY(enemy.getY() + 25);
+                enemy.setY(enemy.getY() + 10);
                 enemy.setX(10);
             }
+            double speed = 0.7;
             enemy.setX(enemy.getX() + speed);
             System.out.println(enemy.getX());
         }
