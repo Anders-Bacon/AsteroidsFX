@@ -131,6 +131,7 @@ public class Main extends Application {
 
     }
 
+
     private Collection<? extends IGamePluginService> getPluginServices() {
         return ServiceLoader.load(IGamePluginService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }

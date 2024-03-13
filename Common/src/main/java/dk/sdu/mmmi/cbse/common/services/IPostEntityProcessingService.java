@@ -9,5 +9,15 @@ import dk.sdu.mmmi.cbse.common.data.World;
  */
 public interface IPostEntityProcessingService {
 
+    /**
+     * Currently not used
+     * This is used after IEntityProcessingService and
+     * controls what should happen to the entities post drawing
+     * As an example player collision or score.
+     * Things that happen during or after the game.
+     *
+     * @param gameData
+     * @param world
+     */
     void process(GameData gameData, World world);
 }
