@@ -13,7 +13,7 @@ public interface IPostEntityProcessingService {
      * Currently not used
      * This is used after IEntityProcessingService and
      * controls what should happen to the entities post drawing
-     * As an example player collision or score.
+     * As an example playersystem collision or score.
      * Things that happen during or after the game.
      *
      * @param gameData

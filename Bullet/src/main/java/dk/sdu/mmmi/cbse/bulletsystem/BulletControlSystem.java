@@ -9,6 +9,9 @@ import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 
 public class BulletControlSystem implements IEntityProcessingService, BulletSPI {
 
+    //Added to avoid player collision with bullet
+    private int bulletShot = 10;
+
     @Override
     public void process(GameData gameData, World world) {
 
@@ -24,8 +27,14 @@ public class BulletControlSystem implements IEntityProcessingService, BulletSPI 
     public Entity createBullet(Entity shooter, GameData gameData) {
         Entity bullet = new Bullet();
         bullet.setPolygonCoordinates(1, -1, 1, 1, -1, 1, -1, -1);
-        bullet.setX(shooter.getX());
-        bullet.setY(shooter.getY());
+
+
+        // Calculate the offset based on the shooter's rotation
+        double offsetX = Math.cos(Math.toRadians(shooter.getRotation())) * bulletShot;
+        double offsetY = Math.sin(Math.toRadians(shooter.getRotation())) * bulletShot;
+
+        bullet.setX(shooter.getX() + offsetX);
+        bullet.setY(shooter.getY() + offsetY);
         bullet.setRotation(shooter.getRotation());
         return bullet;
     }

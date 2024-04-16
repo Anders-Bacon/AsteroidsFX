@@ -8,22 +8,43 @@ import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 
 import java.util.Collection;
 import java.util.ServiceLoader;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static java.util.stream.Collectors.toList;
 
 public class EnemyControlSystem implements IEntityProcessingService {
 
+
+
+    double speed = 1;
     @Override
     public void process(GameData gameData, World world) {
         for (Entity enemy : world.getEntities(Enemy.class)) {
+
             if (enemy.getX() >= gameData.getDisplayWidth()) {
-                enemy.setY(enemy.getY() + 10);
-                enemy.setX(10);
+                enemy.setY(enemy.getY() + 2);
+                enemy.setX(enemy.getX() + 2);
             }
-            double speed = 0.7;
             enemy.setX(enemy.getX() + speed);
             System.out.println(enemy.getX());
+
         }
+
+
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                for (Entity enemy : world.getEntities(Enemy.class)) {
+                    for (BulletSPI bulletSPI : getBulletSPIs()) {
+                        bulletSPI.createBullet(enemy, gameData);
+                    }
+                }
+            }
+        };
+        Timer timer = new Timer("Timer");
+        timer.scheduleAtFixedRate(timerTask, 1000, 1000);
+
     }
 
     private Collection<? extends BulletSPI> getBulletSPIs() {

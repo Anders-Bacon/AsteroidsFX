@@ -6,6 +6,8 @@ import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class AsteroidPlugin implements IGamePluginService {
 
@@ -14,27 +16,33 @@ public class AsteroidPlugin implements IGamePluginService {
     public void start(GameData gameData, World world) {
         asteroid = createAsteroid(gameData);
         world.addEntity(asteroid);
+
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                world.addEntity(asteroid);
+            }
+        };
+        Timer timer = new Timer("Timer");
+        timer.scheduleAtFixedRate(timerTask, 1000, 1000);
+
     }
-
-
     @Override
     public void stop(GameData gameData, World world) {
         for (Entity asteroid : world.getEntities(Asteroid.class)){
             world.removeEntity(asteroid);
         }
     }
-
     public Entity createAsteroid(GameData gameData){
         asteroid = new Asteroid();
-
         //Random squared Asteroids
         Random random = new Random();
         //random sized squares
-        int size = random.nextInt(5)+ random.nextInt(5);
-        asteroid.setPolygonCoordinates(size, -size, -size, size, size);
+        int size = random.nextInt(20) + random.nextInt(20);
+        asteroid.setPolygonCoordinates(size, size, size, -size, -size, -size, -size, size);
         //Automatically set to 0,0 and can rotate a random(360) degrees
-        asteroid.setX(0);
-        asteroid.setY(0);
+        asteroid.setX(50);
+        asteroid.setY(50);
         asteroid.setRotation(random.nextInt(360));
         return asteroid;
     }
