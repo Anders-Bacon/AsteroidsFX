@@ -1,12 +1,17 @@
 package dk.sdu.mmmi.cbse.enemy;
 
+import dk.sdu.mmmi.cbse.common.bullet.BulletSPI;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 
+import java.util.Collection;
+import java.util.ServiceLoader;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static java.util.stream.Collectors.toList;
 
 public class EnemyPlugin implements IGamePluginService {
     private Entity enemy;
@@ -21,18 +26,20 @@ public class EnemyPlugin implements IGamePluginService {
         world.addEntity(enemy);
         enemy.setX(10);
         enemy.setY(10);
-        /* Currently doesnt work
+
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                enemy.setX(enemy.getX() + 5);
-                enemy.setY(enemy.getY() + 5);
+                for (Entity enemy : world.getEntities(Enemy.class)) {
+                    for (BulletSPI bulletSPI : getBulletSPIs()) {
+                        Entity bullet = bulletSPI.createBullet(enemy, gameData);
+                        world.addEntity(bullet);
+                    }
+                }
             }
         };
         Timer timer = new Timer("Timer");
-        timer.scheduleAtFixedRate(timerTask, 10, 5000);
-
-         */
+        timer.scheduleAtFixedRate(timerTask, 1000, 1000);
     }
 
     private Entity createEnemyShip(GameData gameData) {
@@ -52,5 +59,9 @@ public class EnemyPlugin implements IGamePluginService {
     public void stop(GameData gameData, World world) {
         // Remove entities
         world.removeEntity(enemy);
+    }
+
+    private Collection<? extends BulletSPI> getBulletSPIs() {
+        return ServiceLoader.load(BulletSPI.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
 }

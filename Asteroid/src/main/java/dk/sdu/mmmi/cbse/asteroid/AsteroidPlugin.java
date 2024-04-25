@@ -20,6 +20,7 @@ public class AsteroidPlugin implements IGamePluginService {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
+                asteroid = createAsteroid(gameData);
                 world.addEntity(asteroid);
             }
         };

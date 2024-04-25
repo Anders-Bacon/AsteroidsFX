@@ -32,18 +32,7 @@ public class EnemyControlSystem implements IEntityProcessingService {
         }
 
 
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                for (Entity enemy : world.getEntities(Enemy.class)) {
-                    for (BulletSPI bulletSPI : getBulletSPIs()) {
-                        bulletSPI.createBullet(enemy, gameData);
-                    }
-                }
-            }
-        };
-        Timer timer = new Timer("Timer");
-        timer.scheduleAtFixedRate(timerTask, 1000, 1000);
+
 
     }
 
