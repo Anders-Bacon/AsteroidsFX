@@ -6,12 +6,30 @@ import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.net.http.HttpClient;
+
 public class Collision implements IPostEntityProcessingService {
 
     final private float COLLISION_DISTANCE = 2;
+    private boolean scoreUpdate;
+    private long scoreAddition = 0;
 
     @Override
     public void process(GameData gameData, World world) {
+
+        if (scoreUpdate) {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("http://localhost:8080/attributes/score/update/1" + scoreAddition))
+                    .GET()
+                    .build();
+            try {
+                HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+            } catch (IOException | InterruptedException e){}
+        }
 
         for (Entity entity1 : world.getEntities()) {
             for (Entity entity2 : world.getEntities()) {
