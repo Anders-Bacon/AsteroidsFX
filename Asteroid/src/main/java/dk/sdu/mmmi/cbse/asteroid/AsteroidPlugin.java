@@ -11,6 +11,8 @@ import java.util.TimerTask;
 
 public class AsteroidPlugin implements IGamePluginService {
 
+    Random random = new Random();
+
     private Entity asteroid;
     @Override
     public void start(GameData gameData, World world) {
@@ -25,7 +27,7 @@ public class AsteroidPlugin implements IGamePluginService {
             }
         };
         Timer timer = new Timer("Timer");
-        timer.scheduleAtFixedRate(timerTask, 1000, 1000);
+        timer.scheduleAtFixedRate(timerTask, 5000, 1000);
 
     }
     @Override
@@ -42,8 +44,8 @@ public class AsteroidPlugin implements IGamePluginService {
         int size = random.nextInt(20) + random.nextInt(20);
         asteroid.setPolygonCoordinates(size, size, size, -size, -size, -size, -size, size);
         //Automatically set to 0,0 and can rotate a random(360) degrees
-        asteroid.setX(50);
-        asteroid.setY(50);
+        asteroid.setX(random.nextInt());
+        asteroid.setY(random.nextInt());
         asteroid.setRotation(random.nextInt(360));
         return asteroid;
     }

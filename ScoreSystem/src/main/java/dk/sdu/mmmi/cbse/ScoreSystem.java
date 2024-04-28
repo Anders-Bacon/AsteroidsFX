@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin
 
-public class ScoreSystem {
+public class    ScoreSystem {
 
     private long totalScore = 0;
 
