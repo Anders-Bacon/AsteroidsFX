@@ -10,7 +10,6 @@ import dk.sdu.mmmi.cbse.common.data.World;
 public interface IPostEntityProcessingService {
 
     /**
-     * Currently not used
      * This is used after IEntityProcessingService and
      * controls what should happen to the entities post drawing
      * As an example playersystem collision or score.

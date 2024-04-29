@@ -22,10 +22,11 @@ public class EnemyControlSystem implements IEntityProcessingService {
     public void process(GameData gameData, World world) {
         for (Entity enemy : world.getEntities(Enemy.class)) {
 
-            if (enemy.getX() >= gameData.getDisplayWidth()) {
-                enemy.setY(enemy.getY() + 2);
-                enemy.setX(enemy.getX() + 2);
+            if (enemy.getX() >= gameData.getDisplayWidth() ){
+                enemy.setY(enemy.getY() + 10);
+                enemy.setX(10);
             }
+
             enemy.setX(enemy.getX() + speed);
             System.out.println(enemy.getX());
 

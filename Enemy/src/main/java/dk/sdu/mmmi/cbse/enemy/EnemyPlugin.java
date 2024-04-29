@@ -34,12 +34,28 @@ public class EnemyPlugin implements IGamePluginService {
                     for (BulletSPI bulletSPI : getBulletSPIs()) {
                         Entity bullet = bulletSPI.createBullet(enemy, gameData);
                         world.addEntity(bullet);
+                        bullet.setRotation(enemy.getRotation()+90);
                     }
                 }
             }
         };
         Timer timer = new Timer("Timer");
         timer.scheduleAtFixedRate(timerTask, 1000, 1000);
+
+        TimerTask task2 = new TimerTask() {
+            @Override
+            public void run() {
+                enemy = createEnemyShip(gameData);
+                world.addEntity(enemy);
+                enemy.setX(10);
+                enemy.setY(10);
+            }
+        };
+
+        Timer timer2 = new Timer("Timer2");
+        timer2.scheduleAtFixedRate(task2, 10000, 1000);
+
+
     }
 
     private Entity createEnemyShip(GameData gameData) {
