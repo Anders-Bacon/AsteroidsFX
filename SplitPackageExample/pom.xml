@@ -9,7 +9,7 @@
         <version>1.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>dk.sdu.mmmi.cbse.player</groupId>
+    <groupId>dk.sdu.mmmi.cbse.SplitPackage</groupId>
     <artifactId>SplitPackageExample</artifactId>
 
     <properties>

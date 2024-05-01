@@ -13,6 +13,7 @@ import java.lang.module.ModuleDescriptor;
 import java.lang.module.ModuleFinder;
 import java.lang.module.ModuleReference;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
@@ -35,7 +36,7 @@ public class Main extends Application {
     private final Pane gameWindow = new Pane();
 
     //
-    private static ModuleLayer moduleLayer;
+    private static ModuleLayer layer;
     private final List<IGamePluginService> gamePluginServices;
     private final List<IEntityProcessingService> entityProcessingServiceList;
     private final List<IPostEntityProcessingService> postEntityProcessingServices;
@@ -54,12 +55,12 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         //Directory with splitpackage jar file
-        Path directory = Path.of("Plugins");
+        Path pluginsDir = Paths.get("plugins"); // Directory with plugins JARs
 
-        ModuleFinder pluginsFinder = ModuleFinder.of(directory);
+        // Search for plugins in the plugins directory
+        ModuleFinder pluginsFinder = ModuleFinder.of(pluginsDir);
 
-
-        //List of plugins and maps them
+        // Find all names of all found plugin modules
         List<String> plugins = pluginsFinder
                 .findAll()
                 .stream()
@@ -67,15 +68,15 @@ public class Main extends Application {
                 .map(ModuleDescriptor::name)
                 .collect(Collectors.toList());
 
-        //Configuration of module layer
+        // Create configuration that will resolve plugin modules
+        // (verify that the graph of modules is correct)
         Configuration pluginsConfiguration = ModuleLayer
                 .boot()
                 .configuration()
                 .resolve(pluginsFinder, ModuleFinder.of(), plugins);
 
-        //Create the new moduleLayer
-        //it only defines module with one loader
-        moduleLayer = ModuleLayer
+        // Create a module layer for plugins
+        layer = ModuleLayer
                 .boot()
                 .defineModulesWithOneLoader(pluginsConfiguration, ClassLoader.getSystemClassLoader());
 
@@ -179,24 +180,15 @@ public class Main extends Application {
 
 
     private Collection<? extends IGamePluginService> getPluginServices() {
-        return ServiceLoader.load(moduleLayer, IGamePluginService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+        return ServiceLoader.load(layer, IGamePluginService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
 
     private Collection<? extends IEntityProcessingService> getEntityProcessingServices() {
-        return ServiceLoader.load(moduleLayer, IEntityProcessingService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+        return ServiceLoader.load(layer, IEntityProcessingService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
 
     private Collection<? extends IPostEntityProcessingService> getPostEntityProcessingServices() {
-        return ServiceLoader.load(moduleLayer, IPostEntityProcessingService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+            return ServiceLoader.load(layer, IPostEntityProcessingService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
-
-    private static ModuleLayer createLayer(String plugin, String module){
-        var finder = ModuleFinder.of(Path.of(plugin));
-        var parent = ModuleLayer.boot();
-        var cf = parent.configuration().resolve(finder, ModuleFinder.of(), Set.of(module));
-        return parent.defineModulesWithOneLoader(cf, ClassLoader.getSystemClassLoader());
-
-    }
-
 
 }
