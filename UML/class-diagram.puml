@@ -1,0 +1,35 @@
+@startuml
+
+class Entity{
+    - double[] polygonCordinates
+    - double x
+    - double y
+    - double rotation
+}
+
+class Player{}
+Class Enemy{}
+
+class PlayerPlugin{
+    - Entity player
+    - Entity createPlayerShip(Gamedata gameData)
+    + void start(Gamedata gameData, World w)
+    + void stop(Gamedata gameData, World w)
+}
+
+class EnemyPlugin{
+    - Entity enemy
+    - Entity createEnemyShip(Gamedata gameData)
+    + void start(Gamedata gameData, World w)
+    + void stop(Gamedata gameData, World w)
+}
+
+
+EnemyPlugin --> Enemy
+PlayerPlugin --> Player
+Enemy -down-|> Entity
+Player -down-|> Entity
+
+
+
+@enduml

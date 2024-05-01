@@ -1,7 +1,22 @@
 @startuml
 
-[Common]  [CommonBullet]
+Launcher -> Game: start
+Game -> Player: initialize()
+Game -> Enemy: initialize()
+Game -> Asteroid: initialize()
+Game -> ScoreService: connect()
+Game -> Launcher : end
 
 
+@enduml
+
+@startuml 
+
+Player -> Bullet: create()
+Bullet -> Game: move()
+Game -> CollisionModule: checkCollision(Bullet, Enemy)
+CollisionModule --> Game: collisionDetected()
+Game -> ScoreService: updateScore()
+ScoreService --> Game: getScore()
 
 @enduml

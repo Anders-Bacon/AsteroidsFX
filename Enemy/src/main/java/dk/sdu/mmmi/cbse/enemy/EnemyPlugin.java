@@ -53,7 +53,7 @@ public class EnemyPlugin implements IGamePluginService {
         };
 
         Timer timer2 = new Timer("Timer2");
-        timer2.scheduleAtFixedRate(task2, 10000, 1000);
+        timer2.scheduleAtFixedRate(task2, 15000, 1000);
 
 
     }
