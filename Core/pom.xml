@@ -74,7 +74,7 @@
         </dependency>
     </dependencies>
     <build>
-              <plugins>
+        <plugins>
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>3.3.0</version>
@@ -86,7 +86,9 @@
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
-                            <includeArtifactIds>javafx-controls,javafx-graphics,javafx-base,spring-context,spring-core,spring-beans,spring-aop,spring-expression,spring-jcl</includeArtifactIds>
+                            <includeArtifactIds>
+                                javafx-controls,javafx-graphics,javafx-base,spring-context,spring-core,spring-beans,spring-aop,spring-expression,spring-jcl
+                            </includeArtifactIds>
                             <outputDirectory>../mods-mvn</outputDirectory>
                         </configuration>
                     </execution>

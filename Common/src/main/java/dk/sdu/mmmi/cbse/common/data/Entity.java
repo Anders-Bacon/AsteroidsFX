@@ -11,7 +11,24 @@ public class Entity implements Serializable {
     private double x;
     private double y;
     private double rotation;
-            
+    private float radius;
+    private boolean destroyed;
+
+    public boolean isDestroyed() {
+        return destroyed;
+    }
+
+    public void setDestroyed(boolean destroyed) {
+        this.destroyed = destroyed;
+    }
+
+    public float getRadius() {
+        return radius;
+    }
+
+    public void setRadius(float radius) {
+        this.radius = radius;
+    }
 
     public String getID() {
         return ID.toString();
