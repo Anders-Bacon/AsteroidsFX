@@ -39,6 +39,7 @@ public class EnemyPlugin implements IGamePluginService {
                 }
             }
         };
+
         Timer timer = new Timer("Timer");
         timer.scheduleAtFixedRate(timerTask, 1000, 1000);
 
@@ -53,8 +54,13 @@ public class EnemyPlugin implements IGamePluginService {
         };
 
         Timer timer2 = new Timer("Timer2");
-        timer2.scheduleAtFixedRate(task2, 15000, 1000);
 
+        if (world.getEntities(Enemy.class).stream().count() <= 5) {
+            timer2.scheduleAtFixedRate(task2, 15000, 1000);
+        } else {
+            task2.cancel();
+            timer2.cancel();
+        }
 
     }
 
