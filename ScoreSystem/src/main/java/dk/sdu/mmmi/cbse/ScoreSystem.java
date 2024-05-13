@@ -21,7 +21,7 @@ public class    ScoreSystem {
         return totalScore;
     }
 
-    @GetMapping("/score/update/{score}")
+    @PutMapping("/score/update/{score}")
     public Long updateScore(@PathVariable(value = "score") long score) {
         totalScore += score;
         return totalScore;

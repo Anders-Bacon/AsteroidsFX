@@ -14,6 +14,7 @@ public class AsteroidPlugin implements IGamePluginService {
     Random random = new Random();
 
     private Entity asteroid;
+
     @Override
     public void start(GameData gameData, World world) {
         asteroid = createAsteroid(gameData);
@@ -36,6 +37,7 @@ public class AsteroidPlugin implements IGamePluginService {
             world.removeEntity(asteroid);
         }
     }
+    
     public Entity createAsteroid(GameData gameData){
         asteroid = new Asteroid();
         //Random squared Asteroids

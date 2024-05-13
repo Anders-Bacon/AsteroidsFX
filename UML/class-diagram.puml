@@ -9,26 +9,44 @@ class Entity{
 
 class Player{}
 Class Enemy{}
+class bullet{}
+class Asteroid{}
 
-class PlayerPlugin{
-    - Entity player
-    - Entity createPlayerShip(Gamedata gameData)
-    + void start(Gamedata gameData, World w)
-    + void stop(Gamedata gameData, World w)
+
+interface IGamePluginService{
+    void start(GameData gameData, World world)
+    void stop(GameData gameData, World world)
 }
 
-class EnemyPlugin{
-    - Entity enemy
-    - Entity createEnemyShip(Gamedata gameData)
-    + void start(Gamedata gameData, World w)
-    + void stop(Gamedata gameData, World w)
+class Collision{
+    + void process(GameData gameData, World world)
+    + boolean Collision(Entity entity1, Entity entity2)
 }
 
+interface IPostEntityProcessingService{
+    void process(GameData gameData, World world)
+}
 
-EnemyPlugin --> Enemy
-PlayerPlugin --> Player
+interface IEntityProsessingService{
+    void process(GameData gameData, World world)
+}
+
 Enemy -down-|> Entity
 Player -down-|> Entity
+bullet -down-|> Entity
+Asteroid -down-|> Entity
+
+Enemy -up-|> IEntityProsessingService
+Player -up-|> IEntityProsessingService
+bullet -up-|> IEntityProsessingService
+Asteroid -up-|> IEntityProsessingService
+
+Enemy -up-|> IGamePluginService
+Player -up-|> IGamePluginService
+bullet -up-|> IGamePluginService
+Asteroid -up-|> IGamePluginService
+
+
 
 
 
